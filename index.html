@@ -58,13 +58,11 @@
         }
 
         /* 他の効果のマイナスボタンも赤く点灯するように統一 */
-        .control-btn:active:not(:disabled) {
+        .control-btn:active {
             background-color: #ef4444 !important;
             color: white !important;
             border-color: #ef4444 !important;
         }
-        
-        .control-btn:disabled { opacity: 0.15; color: #444; border-color: #222; }
         
         .attr-grid {
             display: grid;
@@ -116,8 +114,7 @@
         .active-light { background-color: #422006; border-color: #eab308; box-shadow: 0 0 8px rgba(234, 179, 8, 0.4); }
         .active-holy  { background-color: #334155; border-color: #9ca3af; box-shadow: 0 0 8px rgba(156, 163, 175, 0.4); }
 
-        .attr-minus-btn:active:not(:disabled) { background-color: #ef4444; color: white; border-color: #ef4444; }
-        .attr-minus-btn:disabled { opacity: 0.1; }
+        .attr-minus-btn:active { background-color: #ef4444; color: white; border-color: #ef4444; }
 
         .attr-card {
             background: linear-gradient(145deg, #0f172a, #020617);
@@ -474,13 +471,13 @@
                             const attrCount = rowSelections.filter(s => s.target === attr).length;
                             btn.innerText = attrCount > 0 ? `${attrLabels[attr]}×${attrCount}` : attrLabels[attr];
                             btn.className = `attr-btn-sm color-${attr} ${attrCount > 0 ? 'active-' + attr : ''}`;
-                            mBtn.disabled = attrCount === 0;
+                            // 常時表示のため disabled = false に固定 (HTML上からは属性を削除)
                         });
                     } else {
                         const display = document.getElementById(`count-${group.id}-${rate}`);
                         display.innerText = count === 0 ? '' : `×${count}`;
                         display.className = count > 0 ? 'text-[12px] font-black ml-1.5 w-6 theme-blue' : 'text-[12px] ml-1.5 w-6 text-slate-800';
-                        document.getElementById(`minus-${group.id}-${rate}`).disabled = count === 0;
+                        // 常時表示のため disabled = false に固定
                     }
                     row.classList.toggle('duplicate-error', (group.type === 'limit' && duplicateRates.includes(rate) && count > 0));
                 });
