@@ -253,7 +253,7 @@
     <script>
         const GROUPS = [
             { id: 'group1', name: 'HP最大時', rates: [24, 32, 40], type: 'stack', target: 'all', lite: false, page: 0 },
-            { id: 'group2', name: 'HP低下時', rates: [23, 30, 37], type: 'stack', target: 'all', lite: false, page: 0 },
+            { id: 'group2', name: 'HP低下時（40%以下）', rates: [23, 30, 37], type: 'stack', target: 'all', lite: false, page: 0 },
             { id: 'group3', name: '属性カット', rates: [9, 13], type: 'stack', target: 'elemental', lite: false, page: 0 },
             { id: 'group4', name: '物理カット', rates: [9, 13], type: 'stack', target: 'phys', lite: false, page: 0 },
             { id: 'attr_combined', name: '特定属性カット', rates: [12, 16, 20], type: 'stack', isMulti: true, lite: false, page: 0 },
@@ -262,7 +262,7 @@
             { id: 'limit2', name: '詠唱時', rates: [18, 24, 30], type: 'limit', target: 'all', lite: true, page: 1 },
             { id: 'limit3', name: 'タメ攻撃命中時', rates: [24, 32, 40], type: 'limit', target: 'all', lite: true, page: 1 },
             { id: 'limit4', name: '被ダメージ時', rates: [21, 28, 36], type: 'limit', target: 'all', lite: true, page: 1 },
-            { id: 'limit5', name: '攻撃連続時', rates: [38, 48, 60], type: 'limit', target: 'all', lite: true, page: 1 },
+            { id: 'limit5', name: '攻撃連続時（一度だけ）', rates: [38, 48, 60], type: 'limit', target: 'all', lite: true, page: 1 },
         ];
 
         let selectionsLite = []; 
@@ -471,13 +471,11 @@
                             const attrCount = rowSelections.filter(s => s.target === attr).length;
                             btn.innerText = attrCount > 0 ? `${attrLabels[attr]}×${attrCount}` : attrLabels[attr];
                             btn.className = `attr-btn-sm color-${attr} ${attrCount > 0 ? 'active-' + attr : ''}`;
-                            // 常時表示のため disabled = false に固定 (HTML上からは属性を削除)
                         });
                     } else {
-                        const display = document.getElementById(`count-${group.id}-${rate}`);
-                        display.innerText = count === 0 ? '' : `×${count}`;
+                        const display = document.getElementById('count-' + group.id + '-' + rate);
+                        display.innerText = count === 0 ? '' : '×' + count;
                         display.className = count > 0 ? 'text-[12px] font-black ml-1.5 w-6 theme-blue' : 'text-[12px] ml-1.5 w-6 text-slate-800';
-                        // 常時表示のため disabled = false に固定
                     }
                     row.classList.toggle('duplicate-error', (group.type === 'limit' && duplicateRates.includes(rate) && count > 0));
                 });
