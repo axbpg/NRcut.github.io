@@ -54,7 +54,17 @@
             border-radius: 4px;
             font-size: 13px;
             touch-action: manipulation;
+            transition: background-color 0.1s;
         }
+
+        /* 他の効果のマイナスボタンも赤く点灯するように統一 */
+        .control-btn:active:not(:disabled) {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #ef4444 !important;
+        }
+        
+        .control-btn:disabled { opacity: 0.15; color: #444; border-color: #222; }
         
         .attr-grid {
             display: grid;
@@ -93,6 +103,7 @@
             border: 1px solid #1e293b;
             color: #475569;
             border-radius: 2px;
+            transition: background-color 0.1s;
         }
 
         .color-magic { color: #60a5fa; }
@@ -105,11 +116,8 @@
         .active-light { background-color: #422006; border-color: #eab308; box-shadow: 0 0 8px rgba(234, 179, 8, 0.4); }
         .active-holy  { background-color: #334155; border-color: #9ca3af; box-shadow: 0 0 8px rgba(156, 163, 175, 0.4); }
 
-        .attr-minus-btn:active:not(:disabled) { background-color: #ef4444; color: white; }
+        .attr-minus-btn:active:not(:disabled) { background-color: #ef4444; color: white; border-color: #ef4444; }
         .attr-minus-btn:disabled { opacity: 0.1; }
-
-        .control-btn:active:not(:disabled) { opacity: 0.7; }
-        .control-btn:disabled { opacity: 0.15; color: #444; border-color: #222; }
 
         .attr-card {
             background: linear-gradient(145deg, #0f172a, #020617);
