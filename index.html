@@ -25,9 +25,9 @@
             min-height: 36px;
             touch-action: manipulation;
         }
-        /* 特定属性カット用の行のみ、ボタン拡大に合わせて高さを調整 */
+        /* 特定属性カット用の行：ボタン拡大に合わせて高さを再調整 */
         .attr-row-special {
-            min-height: 48px;
+            min-height: 52px;
         }
         
         .effect-row.normal-border { border-color: #1e293b; }
@@ -56,7 +56,6 @@
             touch-action: manipulation;
         }
         
-        /* 属性ボタンのグリッドレイアウト */
         .attr-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -74,7 +73,7 @@
 
         .attr-btn-sm {
             width: 100%;
-            height: 25px; /* 24px -> 25px */
+            height: 27px; 
             font-size: 10px;
             font-weight: 900;
             background-color: #0f172a;
@@ -88,7 +87,7 @@
         
         .attr-minus-btn {
             width: 100%;
-            height: 19px; /* 18px -> 19px */
+            height: 21px; 
             font-size: 9px;
             background-color: #020617;
             border: 1px solid #1e293b;
@@ -219,22 +218,28 @@
         <div class="modal-content w-full max-w-sm rounded-lg p-5 shadow-2xl">
             <h3 class="theme-blue font-bold text-[14px] mb-3 border-b border-[#4d98eb]/30 pb-2 uppercase tracking-wider">Guide</h3>
             <div class="space-y-4 text-[12px] leading-relaxed text-slate-300">
-                <p class="text-white font-bold">ELDEN RING NIGHTREIGN<br>付帯効果「カット率上昇」をチェックします。</p>
-                <section>
-                    <h4 class="text-[#4d98eb] font-bold mb-1">【簡易版】</h4>
-                    <ul class="list-disc ml-4 space-y-1">
-                        <li>%部分を押すとSlotに追加されます。</li>
-                        <li>「−」ボタンで削除できます。</li>
-                        <li>重複不可の組み合わせを検知すると警告が表示されます。</li>
-                    </ul>
-                </section>
-                <section>
-                    <h4 class="text-[#4d98eb] font-bold mb-1">【詳細版】</h4>
-                    <ul class="list-disc ml-4 space-y-1">
-                        <li>特定属性カットは、各属性ボタンで個別に増減できます。</li>
-                        <li>「1/2」ボタンでページを切り替えます。</li>
-                    </ul>
-                </section>
+                <p class="text-white font-bold">ELDEN RING NIGHTREIGN<br>付帯効果「カット率上昇」が発動するかをチェックします。</p>
+                
+                <div class="space-y-4">
+                    <section>
+                        <h4 class="text-[#4d98eb] font-bold mb-1">【簡易版】</h4>
+                        <ul class="list-disc ml-4 space-y-1">
+                            <li>入手した効果の%部分を押すと、Slotに追加されます。</li>
+                            <li>右に表示される「-」ボタンを押すと、Slotから削除できます。</li>
+                            <li>重複不可の組み合わせを検知した場合、警告が表示されます。</li>
+                            <li>選択できない効果は重複可能です。（記録不要）</li>
+                            <li>「RESET ALL」で選択を全て解除することができます。</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h4 class="text-[#4d98eb] font-bold mb-1">【詳細版】</h4>
+                        <ul class="list-disc ml-4 space-y-1">
+                            <li>簡易版の機能に加え、効果が全て発動した場合のカット率を計算することができます。</li>
+                            <li>「1/2」ボタンを押すことで、ページを切り替えることができます。</li>
+                        </ul>
+                    </section>
+                </div>
             </div>
             <button onclick="toggleModal(false)" class="mt-6 w-full py-2 bg-[#4d98eb] text-white font-bold rounded hover:bg-blue-600 transition-colors uppercase text-[12px] tracking-widest">閉じる</button>
         </div>
