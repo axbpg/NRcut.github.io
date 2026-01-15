@@ -13,7 +13,7 @@
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
             min-height: 100vh;
-            /* 画面全体でズーム以外の操作（パン）のみを許可 */
+            /* 画面全体でダブルタップズームを抑制 */
             touch-action: manipulation;
         }
         /* NIGHTREIGN Blue Theme */
@@ -28,7 +28,7 @@
             background-clip: padding-box;
             transition: all 0.2s ease;
             min-height: 36px;
-            /* タップ時のズーム判定を無効化 */
+            /* 行単位でもタップ操作を最適化 */
             touch-action: manipulation;
         }
         .effect-row.normal-border {
@@ -55,7 +55,7 @@
             font-weight: bold;
             border-radius: 4px;
             font-size: 13px;
-            /* 連打によるズームを防止 */
+            /* ボタン連打によるズームを防止 */
             touch-action: manipulation;
         }
         /* 属性用小型ボタン */
@@ -136,7 +136,6 @@
             touch-action: manipulation;
         }
 
-        /* Modal Styles */
         #how-to-modal {
             background-color: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(4px);
@@ -148,7 +147,7 @@
             overflow-y: auto;
         }
 
-        /* ユーザーが誤ってテキストを選択しないようにする（連打対策） */
+        /* ユーザーが連打した際にテキスト選択されるのを防ぐ */
         .no-select {
             user-select: none;
             -webkit-user-select: none;
@@ -280,20 +279,21 @@
         function init() {
             renderGroups();
             updateUI();
-            
-            // iPhoneでのダブルタップズームを完全に防ぐためのスクリプト
+
+            // 強力なズーム抑制策: タップ間隔が350ms以内の場合はイベントを抑制
             let lastTouchTime = 0;
-            document.addEventListener('touchend', (event) => {
+            document.addEventListener('touchend', function (event) {
                 const now = (new Date()).getTime();
-                if (now - lastTouchTime <= 300) {
-                    // 300ms以内のタップはダブルタップとみなしてデフォルト挙動を抑制
-                    // ただしボタンのクリックイベント自体はtouch-action: manipulationで動作する
-                    if (event.target.tagName === 'BUTTON' || event.target.closest('.effect-row')) {
-                        // event.preventDefault(); // ここで無効化しすぎるとクリックが発火しない場合があるため、CSSを優先
-                    }
+                if (now - lastTouchTime <= 350) {
+                    // event.preventDefault(); // ここで抑制するとクリックが発火しない場合がある
                 }
                 lastTouchTime = now;
             }, false);
+
+            // iPhoneのSafari/Chromeでズームを強制抑制する呪文
+            document.addEventListener('gesturestart', function (e) {
+                e.preventDefault();
+            });
         }
 
         function toggleModal(show) {
@@ -376,7 +376,10 @@
                             btn.className = `control-btn attr-btn ${attr.color}`;
                             btn.id = `btn-${group.id}-${rate}-${attr.id}`;
                             btn.innerText = attr.label;
-                            btn.onclick = () => updateCountMulti(group, rate, attr.id);
+                            btn.onclick = (e) => {
+                                e.preventDefault(); // 連打による標準挙動抑制
+                                updateCountMulti(group, rate, attr.id);
+                            };
                             controls.appendChild(btn);
                         });
 
@@ -384,7 +387,10 @@
                         minusBtn.className = 'control-btn attr-btn flex-none ml-2 bg-slate-900'; 
                         minusBtn.id = `minus-${group.id}-${rate}`;
                         minusBtn.innerText = '−';
-                        minusBtn.onclick = () => removeLastFromRow(group.id, rate);
+                        minusBtn.onclick = (e) => {
+                            e.preventDefault();
+                            removeLastFromRow(group.id, rate);
+                        };
                         controls.appendChild(minusBtn);
 
                         row.appendChild(controls);
@@ -392,7 +398,10 @@
                     } else {
                         const labelArea = document.createElement('div');
                         labelArea.className = 'flex-grow pl-2 flex items-center h-full cursor-pointer';
-                        labelArea.onclick = () => updateCount(group, rate, 1);
+                        labelArea.onclick = (e) => {
+                            e.preventDefault();
+                            updateCount(group, rate, 1);
+                        };
                         
                         const label = document.createElement('span');
                         label.className = 'text-[13px] font-bold text-white';
@@ -413,6 +422,7 @@
                         minusBtn.id = `minus-${group.id}-${rate}`;
                         minusBtn.innerText = '−';
                         minusBtn.onclick = (e) => {
+                            e.preventDefault();
                             e.stopPropagation();
                             updateCount(group, rate, -1);
                         };
