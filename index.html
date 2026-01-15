@@ -13,6 +13,8 @@
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
             min-height: 100vh;
+            /* ページ全体での不要な挙動を抑制 */
+            touch-action: manipulation;
         }
         /* NIGHTREIGN Blue Theme */
         .theme-blue {
@@ -25,7 +27,9 @@
             border: 2px solid transparent; 
             background-clip: padding-box;
             transition: all 0.2s ease;
-            min-height: 36px; /* 38pxからわずかに短縮して収まりを改善 */
+            min-height: 36px;
+            /* ダブルタップズームを無効化し、タップの反応を高速化 */
+            touch-action: manipulation;
         }
         .effect-row.normal-border {
             border-color: #1e293b;
@@ -40,7 +44,7 @@
             border-color: #ef4444 !important;
         }
         .control-btn {
-            width: 32px; /* 34pxから微調整 */
+            width: 32px;
             height: 32px;
             display: flex;
             align-items: center;
@@ -51,6 +55,8 @@
             font-weight: bold;
             border-radius: 4px;
             font-size: 13px;
+            /* ボタン単体でもダブルタップズームを防止 */
+            touch-action: manipulation;
         }
         /* 属性用小型ボタン */
         .attr-btn {
@@ -65,6 +71,7 @@
             background-color: #0f172a;
             border: 1px solid #1e293b;
             transition: all 0.2s ease;
+            touch-action: manipulation;
         }
         
         .color-magic { color: #60a5fa; }
@@ -126,6 +133,7 @@
             font-size: 13px;
             font-weight: bold;
             border-radius: 4px;
+            touch-action: manipulation;
         }
 
         /* Modal Styles */
@@ -139,9 +147,15 @@
             max-height: 85vh;
             overflow-y: auto;
         }
+
+        /* ユーザーが誤ってテキストを選択しないようにする（連打対策） */
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+        }
     </style>
 </head>
-<body class="p-2 sm:p-4">
+<body class="p-2 sm:p-4 no-select">
 
     <div class="max-w-md mx-auto flex flex-col">
         <!-- Header / Stats (Sticky) -->
@@ -481,7 +495,6 @@
                         ['magic', 'fire', 'light', 'holy'].forEach(attr => {
                             const btn = document.getElementById(`btn-${group.id}-${rate}-${attr}`);
                             const attrCount = rowSelections.filter(s => s.target === attr).length;
-                            // 表示を復元
                             btn.innerText = attrCount > 0 ? `${attrBaseLabels[attr]}×${attrCount}` : attrBaseLabels[attr];
                             btn.classList.toggle(`active-${attr}`, attrCount > 0);
                         });
