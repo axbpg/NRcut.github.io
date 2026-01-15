@@ -13,27 +13,19 @@
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
             min-height: 100vh;
-            /* 画面全体でダブルタップズームを抑制 */
             touch-action: manipulation;
         }
-        /* NIGHTREIGN Blue Theme */
-        .theme-blue {
-            color: #4d98eb;
-        }
-        .bg-dark-night {
-            background-color: #0a111a;
-        }
+        .theme-blue { color: #4d98eb; }
+        .bg-dark-night { background-color: #0a111a; }
+        
         .effect-row {
             border: 2px solid transparent; 
             background-clip: padding-box;
             transition: all 0.2s ease;
             min-height: 36px;
-            /* 行単位でもタップ操作を最適化 */
             touch-action: manipulation;
         }
-        .effect-row.normal-border {
-            border-color: #1e293b;
-        }
+        .effect-row.normal-border { border-color: #1e293b; }
         .effect-row.active {
             border-color: #4d98eb;
             background-color: #0f172a;
@@ -43,6 +35,7 @@
             background-color: #450a0a !important;
             border-color: #ef4444 !important;
         }
+
         .control-btn {
             width: 32px;
             height: 32px;
@@ -55,54 +48,77 @@
             font-weight: bold;
             border-radius: 4px;
             font-size: 13px;
-            /* ボタン連打によるズームを防止 */
-            touch-action: manipulation;
-        }
-        /* 属性用小型ボタン */
-        .attr-btn {
-            flex-grow: 1;
-            min-width: 36px;
-            padding: 0 1px;
-            height: 28px;
-            font-size: 10px;
-            margin-left: 3px;
-            font-weight: 900;
-            white-space: nowrap;
-            background-color: #0f172a;
-            border: 1px solid #1e293b;
-            transition: all 0.2s ease;
             touch-action: manipulation;
         }
         
+        /* 属性ボタンのグリッドレイアウト */
+        .attr-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            flex-grow: 1;
+            margin-left: 6px;
+        }
+        
+        .attr-control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            align-items: center;
+        }
+
+        .attr-btn-sm {
+            width: 100%;
+            height: 24px;
+            font-size: 10px;
+            font-weight: 900;
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 3px;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .attr-minus-btn {
+            width: 100%;
+            height: 18px;
+            font-size: 9px;
+            background-color: #020617;
+            border: 1px solid #1e293b;
+            color: #475569;
+            border-radius: 2px;
+        }
+
         .color-magic { color: #60a5fa; }
         .color-fire  { color: #f87171; }
         .color-light { color: #facc15; }
         .color-holy  { color: #f3f4f6; }
 
-        .attr-btn.active-magic { background-color: #1e3a8a; border-color: #3b82f6; box-shadow: 0 0 8px rgba(59, 130, 246, 0.4); }
-        .attr-btn.active-fire  { background-color: #450a0a; border-color: #ef4444; box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
-        .attr-btn.active-light { background-color: #422006; border-color: #eab308; box-shadow: 0 0 8px rgba(234, 179, 8, 0.4); }
-        .attr-btn.active-holy  { background-color: #334155; border-color: #9ca3af; box-shadow: 0 0 8px rgba(156, 163, 175, 0.4); }
+        .active-magic { background-color: #1e3a8a; border-color: #3b82f6; box-shadow: 0 0 8px rgba(59, 130, 246, 0.4); }
+        .active-fire  { background-color: #450a0a; border-color: #ef4444; box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
+        .active-light { background-color: #422006; border-color: #eab308; box-shadow: 0 0 8px rgba(234, 179, 8, 0.4); }
+        .active-holy  { background-color: #334155; border-color: #9ca3af; box-shadow: 0 0 8px rgba(156, 163, 175, 0.4); }
+
+        .attr-minus-btn:active:not(:disabled) { background-color: #ef4444; color: white; }
+        .attr-minus-btn:disabled { opacity: 0.1; }
 
         .control-btn:active:not(:disabled) { opacity: 0.7; }
-        .control-btn:disabled {
-            opacity: 0.15;
-            cursor: not-allowed;
-            color: #444;
-            border-color: #222;
-        }
+        .control-btn:disabled { opacity: 0.15; color: #444; border-color: #222; }
+
         .attr-card {
             background: linear-gradient(145deg, #0f172a, #020617);
             border-color: #1e293b;
         }
+
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-2px); }
             75% { transform: translateX(2px); }
         }
-        .limit-reached {
-            animation: shake 0.2s ease-in-out 0s 2;
-        }
+        .limit-reached { animation: shake 0.2s ease-in-out 0s 2; }
+        
         #warning-container {
             height: 22px;
             margin-bottom: 2px;
@@ -111,15 +127,8 @@
             justify-content: center;
         }
         
-        .full-width-section {
-            grid-column: span 2;
-        }
-
-        .toggle-active {
-            background-color: rgba(77, 152, 235, 0.15);
-            border-color: rgba(77, 152, 235, 0.5);
-            color: #4d98eb;
-        }
+        .full-width-section { grid-column: span 2; }
+        .toggle-active { background-color: rgba(77, 152, 235, 0.15); border-color: rgba(77, 152, 235, 0.5); color: #4d98eb; }
 
         .page-btn {
             width: 50px;
@@ -136,28 +145,15 @@
             touch-action: manipulation;
         }
 
-        #how-to-modal {
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(4px);
-        }
-        .modal-content {
-            background-color: #0a111a;
-            border: 1px solid #4d98eb;
-            max-height: 85vh;
-            overflow-y: auto;
-        }
-
-        /* ユーザーが連打した際にテキスト選択されるのを防ぐ */
-        .no-select {
-            user-select: none;
-            -webkit-user-select: none;
-        }
+        #how-to-modal { background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px); }
+        .modal-content { background-color: #0a111a; border: 1px solid #4d98eb; max-height: 85vh; overflow-y: auto; }
+        .no-select { user-select: none; -webkit-user-select: none; }
     </style>
 </head>
 <body class="p-2 sm:p-4 no-select">
 
     <div class="max-w-md mx-auto flex flex-col">
-        <!-- Header / Stats (Sticky) -->
+        <!-- Header -->
         <header class="sticky top-0 z-50 bg-[#05070a] pb-1 border-b border-[#1e293b]">
             <div class="flex justify-between items-center mb-0.5">
                 <h1 class="text-[11px] theme-blue uppercase tracking-[0.2em] font-bold">Nightreign Checker</h1>
@@ -207,7 +203,7 @@
             </div>
         </header>
 
-        <!-- メインエリア -->
+        <!-- メイン -->
         <main id="effect-groups" class="mt-1.5 grid grid-cols-2 gap-x-2 gap-y-1.5 pb-10">
             <!-- Groups injected by JS -->
         </main>
@@ -217,49 +213,36 @@
     <div id="how-to-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
         <div class="modal-content w-full max-w-sm rounded-lg p-5 shadow-2xl">
             <h3 class="theme-blue font-bold text-[14px] mb-3 border-b border-[#4d98eb]/30 pb-2 uppercase tracking-wider">Guide</h3>
-            
             <div class="space-y-4 text-[12px] leading-relaxed text-slate-300">
-                <p class="text-white font-bold">
-                    ELDEN RING NIGHTREIGN<br>
-                    付帯効果「カット率上昇」が発動するかをチェックします。
-                </p>
-
+                <p class="text-white font-bold">ELDEN RING NIGHTREIGN<br>付帯効果「カット率上昇」をチェックします。</p>
                 <section>
                     <h4 class="text-[#4d98eb] font-bold mb-1">【簡易版】</h4>
                     <ul class="list-disc ml-4 space-y-1">
-                        <li>入手した効果の%部分を押すと、Slotに追加されます。</li>
-                        <li>右に表示される「−」ボタンを押すと、Slotから削除できます。</li>
-                        <li>重複不可の組み合わせを検知した場合、警告が表示されます。</li>
-                        <li>選択できない効果は重複可能です。（記録不要）</li>
-                        <li>「RESET ALL」で選択を全て解除することができます。</li>
+                        <li>%部分を押すとSlotに追加されます。</li>
+                        <li>「−」ボタンで削除できます。</li>
+                        <li>重複不可の組み合わせを検知すると警告が表示されます。</li>
                     </ul>
                 </section>
-
                 <section>
                     <h4 class="text-[#4d98eb] font-bold mb-1">【詳細版】</h4>
                     <ul class="list-disc ml-4 space-y-1">
-                        <li>簡易版の機能に加え、効果が全て発動した場合のカット率を計算することができます。</li>
-                        <li>「1/2」ボタンを押すことで、ページを切り替えることができます。</li>
+                        <li>特定属性カットは、各属性ボタンで個別に増減できます。</li>
+                        <li>「1/2」ボタンでページを切り替えます。</li>
                     </ul>
                 </section>
             </div>
-
-            <button onclick="toggleModal(false)" class="mt-6 w-full py-2 bg-[#4d98eb] text-white font-bold rounded hover:bg-blue-600 transition-colors uppercase text-[12px] tracking-widest">
-                閉じる
-            </button>
+            <button onclick="toggleModal(false)" class="mt-6 w-full py-2 bg-[#4d98eb] text-white font-bold rounded hover:bg-blue-600 transition-colors uppercase text-[12px] tracking-widest">閉じる</button>
         </div>
     </div>
 
     <script>
         const GROUPS = [
-            // Page 0 (詳細版のみ)
             { id: 'group1', name: 'HP最大時', rates: [24, 32, 40], type: 'stack', target: 'all', lite: false, page: 0 },
             { id: 'group2', name: 'HP低下時', rates: [23, 30, 37], type: 'stack', target: 'all', lite: false, page: 0 },
             { id: 'group3', name: '属性カット', rates: [9, 13], type: 'stack', target: 'elemental', lite: false, page: 0 },
             { id: 'group4', name: '物理カット', rates: [9, 13], type: 'stack', target: 'phys', lite: false, page: 0 },
             { id: 'attr_combined', name: '特定属性カット', rates: [12, 16, 20], type: 'stack', isMulti: true, lite: false, page: 0 },
             
-            // Page 1 (簡易版と詳細版の両方)
             { id: 'limit1', name: 'ガード成功時', rates: [14, 19, 24], type: 'limit', target: 'all', lite: true, page: 1 },
             { id: 'limit2', name: '詠唱時', rates: [18, 24, 30], type: 'limit', target: 'all', lite: true, page: 1 },
             { id: 'limit3', name: 'タメ攻撃命中時', rates: [24, 32, 40], type: 'limit', target: 'all', lite: true, page: 1 },
@@ -272,28 +255,12 @@
         let isLiteMode = true; 
         let currentPage = 1; 
 
-        function getActiveSelections() {
-            return isLiteMode ? selectionsLite : selectionsFull;
-        }
+        function getActiveSelections() { return isLiteMode ? selectionsLite : selectionsFull; }
 
         function init() {
             renderGroups();
             updateUI();
-
-            // 強力なズーム抑制策: タップ間隔が350ms以内の場合はイベントを抑制
-            let lastTouchTime = 0;
-            document.addEventListener('touchend', function (event) {
-                const now = (new Date()).getTime();
-                if (now - lastTouchTime <= 350) {
-                    // event.preventDefault(); // ここで抑制するとクリックが発火しない場合がある
-                }
-                lastTouchTime = now;
-            }, false);
-
-            // iPhoneのSafari/Chromeでズームを強制抑制する呪文
-            document.addEventListener('gesturestart', function (e) {
-                e.preventDefault();
-            });
+            document.addEventListener('gesturestart', (e) => e.preventDefault());
         }
 
         function toggleModal(show) {
@@ -304,22 +271,10 @@
 
         function toggleMode() {
             isLiteMode = !isLiteMode;
-            const btn = document.getElementById('mode-toggle-btn');
-            const statsArea = document.getElementById('stats-area');
-            const nextBtn = document.getElementById('next-page-btn');
-            
-            if (isLiteMode) {
-                btn.innerText = "簡易版を表示中";
-                statsArea.classList.add('hidden');
-                nextBtn.classList.add('hidden');
-                currentPage = 1;
-            } else {
-                btn.innerText = "詳細版を表示中";
-                statsArea.classList.remove('hidden');
-                nextBtn.classList.remove('hidden');
-                currentPage = 0;
-            }
-            
+            document.getElementById('mode-toggle-btn').innerText = isLiteMode ? "簡易版を表示中" : "詳細版を表示中";
+            document.getElementById('stats-area').classList.toggle('hidden', isLiteMode);
+            document.getElementById('next-page-btn').classList.toggle('hidden', isLiteMode);
+            currentPage = isLiteMode ? 1 : 0;
             renderGroups();
             updateUI();
         }
@@ -357,12 +312,12 @@
                     
                     if (group.isMulti) {
                         const labelArea = document.createElement('div');
-                        labelArea.className = 'pl-2 flex items-center pr-1'; 
+                        labelArea.className = 'pl-2 flex items-center'; 
                         labelArea.innerHTML = `<span class="text-[12px] font-bold text-white">${rate}%</span>`;
                         row.appendChild(labelArea);
 
-                        const controls = document.createElement('div');
-                        controls.className = 'flex items-center flex-grow pr-1'; 
+                        const attrGrid = document.createElement('div');
+                        attrGrid.className = 'attr-grid';
 
                         const attrs = [
                             { id: 'magic', label: '魔', color: 'color-magic' },
@@ -372,36 +327,32 @@
                         ];
 
                         attrs.forEach(attr => {
-                            const btn = document.createElement('button');
-                            btn.className = `control-btn attr-btn ${attr.color}`;
-                            btn.id = `btn-${group.id}-${rate}-${attr.id}`;
-                            btn.innerText = attr.label;
-                            btn.onclick = (e) => {
-                                e.preventDefault(); // 連打による標準挙動抑制
-                                updateCountMulti(group, rate, attr.id);
-                            };
-                            controls.appendChild(btn);
+                            const controlGroup = document.createElement('div');
+                            controlGroup.className = 'attr-control-group';
+
+                            const plusBtn = document.createElement('button');
+                            plusBtn.className = `attr-btn-sm ${attr.color}`;
+                            plusBtn.id = `btn-${group.id}-${rate}-${attr.id}`;
+                            plusBtn.innerText = attr.label;
+                            plusBtn.onclick = () => updateCountMulti(group, rate, attr.id, 1);
+                            
+                            const minusBtn = document.createElement('button');
+                            minusBtn.className = 'attr-minus-btn';
+                            minusBtn.id = `minus-${group.id}-${rate}-${attr.id}`;
+                            minusBtn.innerText = '−';
+                            minusBtn.onclick = () => updateCountMulti(group, rate, attr.id, -1);
+
+                            controlGroup.appendChild(plusBtn);
+                            controlGroup.appendChild(minusBtn);
+                            attrGrid.appendChild(controlGroup);
                         });
 
-                        const minusBtn = document.createElement('button');
-                        minusBtn.className = 'control-btn attr-btn flex-none ml-2 bg-slate-900'; 
-                        minusBtn.id = `minus-${group.id}-${rate}`;
-                        minusBtn.innerText = '−';
-                        minusBtn.onclick = (e) => {
-                            e.preventDefault();
-                            removeLastFromRow(group.id, rate);
-                        };
-                        controls.appendChild(minusBtn);
-
-                        row.appendChild(controls);
+                        row.appendChild(attrGrid);
 
                     } else {
                         const labelArea = document.createElement('div');
                         labelArea.className = 'flex-grow pl-2 flex items-center h-full cursor-pointer';
-                        labelArea.onclick = (e) => {
-                            e.preventDefault();
-                            updateCount(group, rate, 1);
-                        };
+                        labelArea.onclick = () => updateCount(group, rate, 1);
                         
                         const label = document.createElement('span');
                         label.className = 'text-[13px] font-bold text-white';
@@ -416,24 +367,20 @@
                         
                         const controls = document.createElement('div');
                         controls.className = 'flex items-center pr-1';
-                        
                         const minusBtn = document.createElement('button');
                         minusBtn.className = 'control-btn';
                         minusBtn.id = `minus-${group.id}-${rate}`;
                         minusBtn.innerText = '−';
                         minusBtn.onclick = (e) => {
-                            e.preventDefault();
                             e.stopPropagation();
                             updateCount(group, rate, -1);
                         };
-                        
                         controls.appendChild(minusBtn);
                         row.appendChild(labelArea);
                         row.appendChild(controls);
                     }
                     list.appendChild(row);
                 });
-
                 section.appendChild(list);
                 container.appendChild(section);
             });
@@ -442,10 +389,7 @@
         function updateCount(group, rate, delta) {
             const activeSelections = getActiveSelections();
             if (delta > 0) {
-                if (activeSelections.length >= 6) {
-                    shakeRow(group.id, rate);
-                    return;
-                }
+                if (activeSelections.length >= 6) { shakeRow(group.id, rate); return; }
                 activeSelections.push({ groupId: group.id, rate: rate, type: group.type, target: group.target });
             } else {
                 const idx = activeSelections.findLastIndex(s => s.groupId === group.id && s.rate === rate);
@@ -454,23 +398,16 @@
             updateUI();
         }
 
-        function updateCountMulti(group, rate, targetId) {
+        function updateCountMulti(group, rate, targetId, delta) {
             const activeSelections = getActiveSelections();
-            if (activeSelections.length >= 6) {
-                shakeRow(group.id, rate);
-                return;
+            if (delta > 0) {
+                if (activeSelections.length >= 6) { shakeRow(group.id, rate); return; }
+                activeSelections.push({ groupId: group.id, rate: rate, type: group.type, target: targetId });
+            } else {
+                const idx = activeSelections.findLastIndex(s => s.groupId === group.id && s.rate === rate && s.target === targetId);
+                if (idx !== -1) activeSelections.splice(idx, 1);
             }
-            activeSelections.push({ groupId: group.id, rate: rate, type: group.type, target: targetId });
             updateUI();
-        }
-
-        function removeLastFromRow(groupId, rate) {
-            const activeSelections = getActiveSelections();
-            const idx = activeSelections.findLastIndex(s => s.groupId === groupId && s.rate === rate);
-            if (idx !== -1) {
-                activeSelections.splice(idx, 1);
-                updateUI();
-            }
         }
 
         function shakeRow(groupId, rate) {
@@ -484,10 +421,7 @@
         function updateUI() {
             const activeSelections = getActiveSelections();
             document.getElementById('slot-count').innerText = activeSelections.length;
-
-            if (!isLiteMode) {
-                document.getElementById('next-page-btn').innerText = `${currentPage + 1}/2`;
-            }
+            if (!isLiteMode) document.getElementById('next-page-btn').innerText = `${currentPage + 1}/2`;
 
             const limitSelections = activeSelections.filter(s => s.type === 'limit');
             const rateCounts = {};
@@ -497,10 +431,10 @@
             const warningEl = document.getElementById('duplicate-warning');
             if (duplicateRates.length > 0) {
                 warningEl.innerText = "⚠️ 重複不可：1つ分のみ適用中";
-                warningEl.className = "w-full bg-red-950 border-red-500 py-0.5 text-center text-[10px] text-red-200 rounded font-bold border transition-colors duration-300";
+                warningEl.className = "w-full bg-red-950 border-red-500 py-0.5 text-center text-[10px] text-red-200 rounded font-bold border";
             } else {
                 warningEl.innerText = "重複なし";
-                warningEl.className = "w-full bg-transparent border-slate-800 py-0.5 text-center text-[10px] text-slate-500 rounded font-bold border transition-colors duration-300";
+                warningEl.className = "w-full bg-transparent border-slate-800 py-0.5 text-center text-[10px] text-slate-500 rounded font-bold border";
             }
 
             GROUPS.forEach(group => {
@@ -510,19 +444,19 @@
 
                     const rowSelections = activeSelections.filter(s => s.groupId === group.id && s.rate === rate);
                     const count = rowSelections.length;
-                    
                     row.classList.toggle('active', count > 0);
                     row.classList.toggle('normal-border', count === 0);
 
                     if (group.isMulti) {
-                        const attrBaseLabels = { magic: '魔', fire: '炎', light: '雷', holy: '聖' };
+                        const attrLabels = { magic: '魔', fire: '炎', light: '雷', holy: '聖' };
                         ['magic', 'fire', 'light', 'holy'].forEach(attr => {
                             const btn = document.getElementById(`btn-${group.id}-${rate}-${attr}`);
+                            const mBtn = document.getElementById(`minus-${group.id}-${rate}-${attr}`);
                             const attrCount = rowSelections.filter(s => s.target === attr).length;
-                            btn.innerText = attrCount > 0 ? `${attrBaseLabels[attr]}×${attrCount}` : attrBaseLabels[attr];
-                            btn.classList.toggle(`active-${attr}`, attrCount > 0);
+                            btn.innerText = attrCount > 0 ? `${attrLabels[attr]}×${attrCount}` : attrLabels[attr];
+                            btn.className = `attr-btn-sm color-${attr} ${attrCount > 0 ? 'active-' + attr : ''}`;
+                            mBtn.disabled = attrCount === 0;
                         });
-                        document.getElementById(`minus-${group.id}-${rate}`).disabled = count === 0;
                     } else {
                         const display = document.getElementById(`count-${group.id}-${rate}`);
                         display.innerText = count === 0 ? '' : `×${count}`;
@@ -548,21 +482,14 @@
                         effectiveSelections.push(s); 
                         processedLimitRates.add(s.rate);
                     }
-                } else {
-                    effectiveSelections.push(s); 
-                }
+                } else { effectiveSelections.push(s); }
             });
 
             effectiveSelections.forEach(s => {
                 const multiplier = 1 - (s.rate / 100);
-                if (s.target === 'all') {
-                    Object.keys(stats).forEach(k => stats[k] *= multiplier);
-                } else if (s.target === 'elemental') {
-                    stats.magic *= multiplier; stats.fire *= multiplier;
-                    stats.light *= multiplier; stats.holy *= multiplier;
-                } else {
-                    stats[s.target] *= multiplier;
-                }
+                if (s.target === 'all') { Object.keys(stats).forEach(k => stats[k] *= multiplier); }
+                else if (s.target === 'elemental') { stats.magic *= multiplier; stats.fire *= multiplier; stats.light *= multiplier; stats.holy *= multiplier; }
+                else { stats[s.target] *= multiplier; }
             });
 
             const format = (val) => `${((1 - val) * 100).toFixed(1)}%`;
